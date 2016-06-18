@@ -1,3 +1,5 @@
+"use strict";
+require("typings-global");
+exports.path = require("path");
 
-
-//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJjZXJ0LnBhdGhzLmpzIiwic291cmNlc0NvbnRlbnQiOltdfQ==
+//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImNlcnQucGF0aHMudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IjtBQUFBLFFBQU8sZ0JBQWdCLENBQUMsQ0FBQTtBQUNWLFlBQUksV0FBVyxNQUFNLENBQUMsQ0FBQyIsImZpbGUiOiJjZXJ0LnBhdGhzLmpzIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IFwidHlwaW5ncy1nbG9iYWxcIjtcbmV4cG9ydCBpbXBvcnQgcGF0aCA9IHJlcXVpcmUoXCJwYXRoXCIpO1xuXG4iXX0=
