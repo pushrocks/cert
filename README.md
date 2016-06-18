@@ -6,7 +6,7 @@ Easily obain SSL certificates from LetsEncrypt. Supports DNS-01 challenge. TypeS
 ```typescript
 import {Cert} from "cert";
 
-myCert = new Cert({
+let myCert = new Cert({
     cfEmail = "some@cloudflare.email",
     cfKey = "someCloudflareApiKey",
     outputPath = "someOutputPath" // NOTE: if you already have certificates, make sure you put them in here, so cert only requires the missing ones
