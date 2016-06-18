@@ -27,7 +27,9 @@
     "cflare": "0.0.2",
     "letsencrypt": "^1.4.4",
     "smartcli": "^1.0.2",
-    "smartfile": "^3.0.10"
+    "smartfile": "^3.0.10",
+    "smartgit": "0.0.10",
+    "typings-global": "^1.0.3"
   },
   "devDependencies": {
     "npmts-g": "^5.2.6"

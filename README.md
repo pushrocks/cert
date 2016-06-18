@@ -9,8 +9,11 @@ import {Cert} from "cert";
 let myCert = new Cert({
     cfEmail = "some@cloudflare.email",
     cfKey = "someCloudflareApiKey",
-    outputPath = "someOutputPath" // NOTE: if you already have certificates, make sure you put them in here, so cert only requires the missing ones
+    sslDir = "someOutputPath" // NOTE: if you already have certificates, make sure you put them in here, so cert only requires the missing ones
 });
 
 myCert.getDomainCert("example.com");
 ```
+
+### sslDir
+to use the certificates it is important to understand what the structure of the ssl directory looks like.
