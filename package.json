@@ -1,7 +1,7 @@
 {
   "name": "cert",
   "version": "0.0.3",
-  "description": "automatic cert generation for coreos clusters",
+  "description": "Easily obain SSL certificates from LetsEncrypt. Supports DNS-01 challenge. TypeScript ready.",
   "main": "dist/index.js",
   "scripts": {
     "test": "(npmts)"
