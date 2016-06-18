@@ -8,8 +8,6 @@ testLEGACY:
   stage: test
   script:
     - npmci test legacy
-  only:
-    - master
   tags:
     - docker
     - lossless
@@ -18,8 +16,6 @@ testLTS:
   stage: test
   script:
     - npmci test lts
-  only:
-    - master
   tags:
     - docker
     - lossless
@@ -28,8 +24,6 @@ testSTABLE:
   stage: test
   script:
     - npmci test stable
-  only:
-    - master
   tags:
     - docker
     - lossless
@@ -39,6 +33,6 @@ release:
   script:
     - npmci publish npm
   only:
-    - master
+    - tags
   tags:
     - lossless
