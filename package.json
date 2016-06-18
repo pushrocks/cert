@@ -1,6 +1,6 @@
 {
   "name": "cert",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Easily obain SSL certificates from LetsEncrypt. Supports DNS-01 challenge. TypeScript ready.",
   "main": "dist/index.js",
   "scripts": {
