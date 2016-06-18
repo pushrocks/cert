@@ -24,5 +24,8 @@
   "homepage": "https://github.com/pushrocks/cert#readme",
   "dependencies": {
     "letsencrypt": "^1.4.4"
+  },
+  "devDependencies": {
+    "npmts-g": "^5.2.6"
   }
 }
