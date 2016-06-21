@@ -36,6 +36,7 @@
   "devDependencies": {
     "npmts-g": "^5.2.6",
     "qenv": "^1.0.8",
+    "should": "^9.0.2",
     "typings-test": "^1.0.1"
   }
 }
