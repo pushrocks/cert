@@ -4,7 +4,8 @@
   "description": "Easily obain SSL certificates from LetsEncrypt. Supports DNS-01 challenge. TypeScript ready.",
   "main": "dist/index.js",
   "scripts": {
-    "test": "(npmts)"
+    "test": "(npmts)",
+    "install": "node dist/install.js"
   },
   "repository": {
     "type": "git",
@@ -24,7 +25,8 @@
   "homepage": "https://gitlab.com/pushrocks/cert#readme",
   "dependencies": {
     "beautylog": "^5.0.12",
-    "cflare": "0.0.2",
+    "cflare": "0.0.6",
+    "fs-extra": "^0.30.0",
     "letsencrypt": "^1.4.4",
     "smartcli": "^1.0.2",
     "smartfile": "^3.0.10",
@@ -32,6 +34,8 @@
     "typings-global": "^1.0.3"
   },
   "devDependencies": {
-    "npmts-g": "^5.2.6"
+    "npmts-g": "^5.2.6",
+    "qenv": "^1.0.8",
+    "typings-test": "^1.0.1"
   }
 }

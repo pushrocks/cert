@@ -11,7 +11,7 @@ export class Cert {
         cfEmail:string,
         cfKey:string,
         sslDir:string,
-        gitOriginRepo:string
+        gitOriginRepo?:string
     }){
         this.cfEmail = optionsArg.cfEmail;
         this.cfKey = optionsArg.cfKey;
@@ -22,6 +22,9 @@ export class Cert {
 }
 
 export class Certificate {
+    domainName:string;
+    creationDate:Date;
+    expiryDate:Date;
     constructor(){
 
     };
