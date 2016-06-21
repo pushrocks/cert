@@ -28,9 +28,11 @@
     "cflare": "0.0.6",
     "fs-extra": "^0.30.0",
     "letsencrypt": "^1.4.4",
+    "q": "^1.4.1",
     "smartcli": "^1.0.2",
     "smartfile": "^3.0.10",
     "smartgit": "0.0.10",
+    "smartstring": "^2.0.9",
     "typings-global": "^1.0.3"
   },
   "devDependencies": {
