@@ -20,7 +20,7 @@ describe("cert",function(){
         })
     })
     describe("Cert",function(){
-        it("should create a new cert",function(){
+        it("should create a new Cert object from class",function(){
             testCert = new cert.Cert({
                 cfEmail: process.env.CF_EMAIL,
                 cfKey: process.env.CF_KEY,

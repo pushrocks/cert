@@ -34,11 +34,19 @@ export class Cert {
     };
 }
 
-export class Certificate {
+class Certificate {
     domainName:string;
     creationDate:Date;
     expiryDate:Date;
     constructor(){
 
     };
+}
+
+let updateSslDir = () => {
+
+}
+
+let updateGitOrigin = () => {
+    
 }

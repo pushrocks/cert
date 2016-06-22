@@ -3,3 +3,4 @@ docs/
 coverage/
 .nogit/
 dist/assets/
+test/assets/
