@@ -1,8 +1,6 @@
 # Cert
 Easily obain SSL certificates from LetsEncrypt. Supports DNS-01 challenge. TypeScript ready.
 
-> Note: this package is in pre-alpha stage and will be ready soon.
-
 ## Usage 
 
 ```typescript

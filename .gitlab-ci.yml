@@ -6,9 +6,11 @@ stages:
   - release
     
 testLTS:
-  stage: test
+  stage: test1
   script:
     - npmci test lts
+  only:
+    - tags
   tags:
     - docker
     - lossless
@@ -17,6 +19,8 @@ testSTABLE:
   stage: test2
   script:
     - npmci test stable
+  only:
+    - tags
   tags:
     - docker
     - lossless

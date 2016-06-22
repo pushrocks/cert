@@ -1,0 +1,10 @@
+import "typings-global";
+export import beautylog = require("beautylog");
+export import cflare = require("cflare");
+export declare let fs: any;
+export import path = require("path");
+export declare let q: any;
+export declare let shelljs: any;
+export import smartcli = require("smartcli");
+export import smartfile = require("smartfile");
+export import smartstring = require("smartstring");
