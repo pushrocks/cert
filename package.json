@@ -27,7 +27,6 @@
     "beautylog": "^5.0.12",
     "cflare": "0.0.7",
     "fs-extra": "^0.30.0",
-    "letsencrypt": "^1.4.4",
     "q": "^1.4.1",
     "shelljs": "^0.7.0",
     "smartcli": "^1.0.4",

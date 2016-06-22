@@ -7,5 +7,6 @@ export let q = require("q");
 export let shelljs = require("shelljs");
 export import smartcli = require("smartcli");
 export import smartfile = require("smartfile");
+export import smartgit = require("smartgit");
 export import smartstring = require("smartstring");
 
