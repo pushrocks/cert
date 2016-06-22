@@ -11,7 +11,7 @@ export declare class Cert {
         sslDir: string;
         gitOriginRepo?: string;
     });
-    getDomainCert(): void;
+    getDomainCert(domainNameArg: string): any;
 }
 export declare class Certificate {
     domainName: string;
