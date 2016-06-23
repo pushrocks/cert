@@ -2,18 +2,18 @@ import * as plugins from "./cert.plugins";
 import * as paths from "./cert.paths";
 
 export class Cert {
-    cfEmail:string;
-    cfKey:string;
-    sslDir:string;
+    cfEmail: string;
+    cfKey: string;
+    sslDir: string;
     certificatesPresent;
     certificatesValid;
     gitOriginRepo;
-    constructor(optionsArg:{
-        cfEmail:string,
-        cfKey:string,
-        sslDir:string,
-        gitOriginRepo?:string
-    }){
+    constructor(optionsArg: {
+        cfEmail: string,
+        cfKey: string,
+        sslDir: string,
+        gitOriginRepo?: string
+    }) {
         this.cfEmail = optionsArg.cfEmail;
         this.cfKey = optionsArg.cfKey;
         this.sslDir = optionsArg.sslDir;
@@ -22,31 +22,40 @@ export class Cert {
             cfEmail: this.cfEmail,
             cfKey: this.cfKey
         }
-        plugins.smartfile.memory.toFsSync(JSON.stringify(config),{fileName:"config.json",filePath:plugins.path.join(__dirname,"assets/")});
+        plugins.smartfile.memory.toFsSync(JSON.stringify(config), { fileName: "config.json", filePath: plugins.path.join(__dirname, "assets/") });
     };
-    getDomainCert(domainNameArg:string){
+    getDomainCert(domainNameArg: string,optionsArg:{force:boolean}) {
         let done = plugins.q.defer();
-        plugins.shelljs.exec("chmod 700 " + paths.letsencryptSh);
-        plugins.shelljs.exec("chmod 700 " + paths.certHook);
-        plugins.shelljs.exec("bash -c \"" + paths.letsencryptSh + " -c -d " + domainNameArg + " -t dns-01 -k " + paths.certHook + " -o "+ paths.sslDir + "\"");
-        done.resolve();
+        if (!checkDomainStillValid(domainNameArg) || optionsArg.force) {
+            plugins.shelljs.exec("chmod 700 " + paths.letsencryptSh);
+            plugins.shelljs.exec("chmod 700 " + paths.certHook);
+            plugins.shelljs.exec("bash -c \"" + paths.letsencryptSh + " -c -d " + domainNameArg + " -t dns-01 -k " + paths.certHook + " -o " + paths.sslDir + "\"");
+            done.resolve();
+        } else {
+            plugins.beautylog.info("certificate for " + domainNameArg + " is still valid! Not fetching new one!");
+            done.resolve();
+        }
         return done.promise;
     };
 }
 
 class Certificate {
-    domainName:string;
-    creationDate:Date;
-    expiryDate:Date;
-    constructor(){
+    domainName: string;
+    creationDate: Date;
+    expiryDate: Date;
+    constructor() {
 
     };
 }
 
-let updateSslDir = () => {
+let checkDomainStillValid = (domainNameArg: string): boolean => {
+    return false;
+}
 
+let updateSslDir = () => {
+    
 }
 
 let updateGitOrigin = () => {
-    
+
 }
