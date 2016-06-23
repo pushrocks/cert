@@ -5,8 +5,8 @@ export class Cert {
     cfEmail: string;
     cfKey: string;
     sslDir: string;
-    certificatesPresent;
-    certificatesValid;
+    certificatesPresent:Certificate[];
+    certificatesValid:Certificate[];
     gitOriginRepo;
     constructor(optionsArg: {
         cfEmail: string,
@@ -53,7 +53,7 @@ let checkDomainStillValid = (domainNameArg: string): boolean => {
 }
 
 let updateSslDir = () => {
-    
+
 }
 
 let updateGitOrigin = () => {
