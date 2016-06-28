@@ -30,7 +30,7 @@
     "q": "^1.4.1",
     "shelljs": "^0.7.0",
     "smartcli": "^1.0.4",
-    "smartfile": "^4.0.5",
+    "smartfile": "^4.0.7",
     "smartgit": "0.1.0",
     "smartstring": "^2.0.10",
     "typings-global": "^1.0.3"

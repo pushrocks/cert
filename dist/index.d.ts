@@ -1,7 +1,7 @@
 export declare class Cert {
-    cfEmail: string;
-    cfKey: string;
-    sslDir: string;
+    private _cfEmail;
+    private _cfKey;
+    private _sslDir;
     certificatesPresent: Certificate[];
     certificatesValid: Certificate[];
     gitOriginRepo: any;

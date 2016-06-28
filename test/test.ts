@@ -1,6 +1,7 @@
 import "typings-test";
 import "should";
 import {Qenv} from "qenv";
+import path = require("path");
 
 import {startInstall} from "../dist/install";
 import * as cert from "../dist/index";
@@ -24,13 +25,13 @@ describe("cert",function(){
             testCert = new cert.Cert({
                 cfEmail: process.env.CF_EMAIL,
                 cfKey: process.env.CF_KEY,
-                sslDir: ""
+                sslDir: path.join(process.cwd(),"test/assets")
             });
             testCert.should.be.instanceof(cert.Cert);
         })
         it("should get a valid certificate",function(done){
             this.timeout(120000);
-            testCert.getDomainCert("sub6.bleu.de").then(() => {
+            testCert.getDomainCert("sub7.bleu.de").then(() => {
                 done();
             });
         })
