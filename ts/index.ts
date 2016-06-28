@@ -75,8 +75,8 @@ let updateSslDirSync = (sslDirArg:string,domainNameArg:string) => {
             plugins.path.join(sslDirArg,domainNameArg,"privkey.pem")
         );
         // create cert config
-        let certRegex = /.*\-([]0-9]*)\.pem/;
-        let certFileNameWithTime = plugins.smartfile.fs.listFilesSync(domainCertFolder,certRegex)[1];
+        let certRegex = /.*\-([0-9]*)\.pem/;
+        let certFileNameWithTime:string = plugins.smartfile.fs.listFilesSync(domainCertFolder,certRegex)[0];
         let certTime = parseInt(certRegex.exec(certFileNameWithTime)[1]);
         let certConfig:certConfig = {
             domainName: domainNameArg,
