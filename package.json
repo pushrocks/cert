@@ -25,13 +25,13 @@
   "homepage": "https://gitlab.com/pushrocks/cert#readme",
   "dependencies": {
     "beautylog": "^5.0.12",
-    "cflare": "0.0.7",
+    "cflare": "0.0.9",
     "fs-extra": "^0.30.0",
     "q": "^1.4.1",
     "shelljs": "^0.7.0",
     "smartcli": "^1.0.4",
-    "smartfile": "^3.0.10",
-    "smartgit": "0.0.10",
+    "smartfile": "^4.0.5",
+    "smartgit": "0.1.0",
     "smartstring": "^2.0.10",
     "typings-global": "^1.0.3"
   },

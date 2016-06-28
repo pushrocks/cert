@@ -7,7 +7,7 @@ import * as paths from "./cert.paths";
 
 let smartcli = new plugins.smartcli.Smartcli();
 
-let config = plugins.smartfile.local.toObjectSync(paths.config);
+let config = plugins.smartfile.fs.toObjectSync(paths.config);
 let cflare = new plugins.cflare.CflareAccount();
 cflare.auth({
     email: config.cfEmail,
@@ -16,7 +16,10 @@ cflare.auth({
 
 let setChallenge = (domainNameArg: string, challengeArg: string) => {
     let done = plugins.q.defer();
+    plugins.beautylog.log("setting challenge for " + domainNameArg);
     cflare.createRecord(prefixName(domainNameArg), "TXT", challengeArg).then(() => {
+        plugins.beautylog.ok("Challenge has been set!");
+        plugins.beautylog.info("We need to cool down to let DNS propagate to edge locations!");
         cooldown().then(() => {
             done.resolve();
         });
@@ -26,16 +29,29 @@ let setChallenge = (domainNameArg: string, challengeArg: string) => {
 
 let cleanChallenge = (domainNameArg) => {
     let done = plugins.q.defer();
+    plugins.beautylog.log("cleaning challenge for " + domainNameArg);
     cflare.removeRecord(prefixName(domainNameArg), "TXT");
     return done.promise;
 }
 
 let cooldown = () => {
     let done = plugins.q.defer();
-    console.log("Cooling down!");
-    setTimeout(() => {
-        done.resolve();
-    }, 20000)
+    let cooldowntime = 40000;
+    let passedTime = 0;
+    plugins.beautylog.log("Cooling down! " + (cooldowntime/1000).toString() + " seconds left");
+    let coolDownCounter = () => {
+        setTimeout(() => {
+            if(cooldowntime <= passedTime){
+                plugins.beautylog.ok("Cooled down!");
+                done.resolve();
+            } else {
+                passedTime = passedTime + 5000;
+                plugins.beautylog.log("Cooling down! " + ((cooldowntime - passedTime)/1000).toString() + " seconds left");
+                coolDownCounter();
+            }
+        }, 5000);
+    }
+    coolDownCounter();
     return done.promise;
 }
 

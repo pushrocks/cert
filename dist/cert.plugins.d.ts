@@ -7,4 +7,5 @@ export declare let q: any;
 export declare let shelljs: any;
 export import smartcli = require("smartcli");
 export import smartfile = require("smartfile");
+export import smartgit = require("smartgit");
 export import smartstring = require("smartstring");

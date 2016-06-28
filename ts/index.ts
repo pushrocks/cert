@@ -22,14 +22,18 @@ export class Cert {
             cfEmail: this.cfEmail,
             cfKey: this.cfKey
         }
-        plugins.smartfile.memory.toFsSync(JSON.stringify(config), { fileName: "config.json", filePath: plugins.path.join(__dirname, "assets/") });
+        plugins.smartfile.memory.toFsSync(JSON.stringify(config),plugins.path.join(__dirname, "assets/config.json"));
     };
-    getDomainCert(domainNameArg: string,optionsArg:{force:boolean}) {
+    getDomainCert(domainNameArg: string,optionsArg?:{force:boolean}) {
         let done = plugins.q.defer();
         if (!checkDomainStillValid(domainNameArg) || optionsArg.force) {
             plugins.shelljs.exec("chmod 700 " + paths.letsencryptSh);
             plugins.shelljs.exec("chmod 700 " + paths.certHook);
-            plugins.shelljs.exec("bash -c \"" + paths.letsencryptSh + " -c -d " + domainNameArg + " -t dns-01 -k " + paths.certHook + " -o " + paths.sslDir + "\"");
+            plugins.shelljs.exec("bash -c \"" + paths.letsencryptSh + " -c -d " + domainNameArg + " -t dns-01 -k " + paths.certHook + " -o " + paths.certDir + "\"");
+            let fetchedCertsArray:string[] = plugins.smartfile.fs.listFoldersSync(paths.certDir);
+            if(fetchedCertsArray.indexOf(domainNameArg) != -1){
+                updateSslDir(domainNameArg);
+            }
             done.resolve();
         } else {
             plugins.beautylog.info("certificate for " + domainNameArg + " is still valid! Not fetching new one!");
@@ -39,7 +43,7 @@ export class Cert {
     };
 }
 
-class Certificate {
+export class Certificate {
     domainName: string;
     creationDate: Date;
     expiryDate: Date;
@@ -52,8 +56,8 @@ let checkDomainStillValid = (domainNameArg: string): boolean => {
     return false;
 }
 
-let updateSslDir = () => {
-
+let updateSslDir = (domainNameArg) => {
+    
 }
 
 let updateGitOrigin = () => {

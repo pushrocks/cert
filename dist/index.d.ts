@@ -2,8 +2,8 @@ export declare class Cert {
     cfEmail: string;
     cfKey: string;
     sslDir: string;
-    certificatesPresent: any;
-    certificatesValid: any;
+    certificatesPresent: Certificate[];
+    certificatesValid: Certificate[];
     gitOriginRepo: any;
     constructor(optionsArg: {
         cfEmail: string;
@@ -11,7 +11,9 @@ export declare class Cert {
         sslDir: string;
         gitOriginRepo?: string;
     });
-    getDomainCert(domainNameArg: string): any;
+    getDomainCert(domainNameArg: string, optionsArg?: {
+        force: boolean;
+    }): any;
 }
 export declare class Certificate {
     domainName: string;
