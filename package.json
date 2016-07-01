@@ -5,7 +5,8 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "(npmts)",
-    "install": "node dist/install.js install"
+    "install": "node dist/install.js install",
+    "compile":"(npmts --notest)" 
   },
   "repository": {
     "type": "git",
@@ -24,6 +25,9 @@
   },
   "homepage": "https://gitlab.com/pushrocks/cert#readme",
   "dependencies": {
+    "@types/minimatch": "^2.0.22-alpha",
+    "@types/q": "0.0.21-alpha",
+    "@types/shelljs": "^0.3.21-alpha",
     "beautylog": "^5.0.12",
     "cflare": "0.0.9",
     "fs-extra": "^0.30.0",

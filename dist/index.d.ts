@@ -1,3 +1,5 @@
+/// <reference types="q" />
+import * as plugins from "./cert.plugins";
 export declare class Cert {
     private _cfEmail;
     private _cfKey;
@@ -13,7 +15,7 @@ export declare class Cert {
     });
     getDomainCert(domainNameArg: string, optionsArg?: {
         force: boolean;
-    }): any;
+    }): plugins.q.Promise<{}>;
 }
 export declare class Certificate {
     domainName: string;
