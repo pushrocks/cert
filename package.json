@@ -30,10 +30,10 @@
     "q": "^1.4.1",
     "shelljs": "^0.7.0",
     "smartcli": "^1.0.4",
-    "smartfile": "^4.0.8",
+    "smartfile": "^4.0.10",
     "smartgit": "0.1.0",
     "smartstring": "^2.0.10",
-    "typings-global": "^1.0.3"
+    "typings-global": "^1.0.5"
   },
   "devDependencies": {
     "npmts-g": "^5.2.6",
