@@ -4,7 +4,8 @@
   "description": "Easily obain SSL certificates from LetsEncrypt. Supports DNS-01 challenge. TypeScript ready.",
   "main": "dist/index.js",
   "scripts": {
-    "test": "(npmts)",
+    "test": "(npm run cleanTest && npmts)",
+    "cleanTest":"(rm -rf ./test/assets)",
     "install": "node dist/install.js install",
     "compile":"(npmts --notest)" 
   },
@@ -35,7 +36,7 @@
     "shelljs": "^0.7.0",
     "smartcli": "^1.0.4",
     "smartfile": "^4.0.10",
-    "smartgit": "0.1.7",
+    "smartgit": "0.1.8",
     "smartstring": "^2.0.10",
     "typings-global": "^1.0.6"
   },
