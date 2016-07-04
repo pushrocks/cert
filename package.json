@@ -1,13 +1,13 @@
 {
   "name": "cert",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "Easily obain SSL certificates from LetsEncrypt. Supports DNS-01 challenge. TypeScript ready.",
   "main": "dist/index.js",
   "scripts": {
     "test": "(npm run cleanTest && npmts)",
-    "cleanTest":"(rm -rf ./test/assets)",
+    "cleanTest": "(rm -rf ./test/assets)",
     "install": "node dist/install.js install",
-    "compile":"(npmts --notest)" 
+    "compile": "(npmts --notest)"
   },
   "repository": {
     "type": "git",
