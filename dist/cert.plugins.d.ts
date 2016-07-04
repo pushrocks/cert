@@ -4,7 +4,7 @@ export import cflare = require("cflare");
 export declare let fs: any;
 export import path = require("path");
 export import q = require("q");
-export import shelljs = require("shelljs");
+export declare let shelljs: any;
 export import smartcli = require("smartcli");
 export import smartfile = require("smartfile");
 export import smartgit = require("smartgit");

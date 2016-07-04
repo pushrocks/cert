@@ -6,13 +6,15 @@ export declare class Cert {
     private _sslDir;
     certificatesPresent: Certificate[];
     certificatesValid: Certificate[];
-    gitOriginRepo: any;
+    private _gitOriginRepo;
     constructor(optionsArg: {
         cfEmail: string;
         cfKey: string;
         sslDir: string;
         gitOriginRepo?: string;
     });
+    sslGitOriginPull: () => void;
+    sslGitOriginAddCommitPush: () => void;
     getDomainCert(domainNameArg: string, optionsArg?: {
         force: boolean;
     }): plugins.q.Promise<{}>;

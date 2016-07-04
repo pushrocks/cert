@@ -22,16 +22,18 @@ describe("cert",function(){
     })
     describe("Cert",function(){
         it("should create a new Cert object from class",function(){
+            this.timeout(20000);
             testCert = new cert.Cert({
                 cfEmail: process.env.CF_EMAIL,
                 cfKey: process.env.CF_KEY,
-                sslDir: path.join(process.cwd(),"test/assets")
+                sslDir: path.join(process.cwd(),"test/assets"),
+                gitOriginRepo:"git@gitlab.com:philkunz/sandbox-sslorigin.git"
             });
             testCert.should.be.instanceof(cert.Cert);
         })
         it("should get a valid certificate",function(done){
             this.timeout(120000);
-            testCert.getDomainCert("sub10.bleu.de").then(() => {
+            testCert.getDomainCert("sub11.bleu.de").then(() => {
                 done();
             });
         })

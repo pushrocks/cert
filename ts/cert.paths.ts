@@ -1,4 +1,3 @@
-import "typings-global";
 import * as plugins from "./cert.plugins";
 
 export let certHook = plugins.path.join(__dirname,"cert.hook.js");

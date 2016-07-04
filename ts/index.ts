@@ -7,7 +7,7 @@ export class Cert {
     private _sslDir: string;
     certificatesPresent:Certificate[];
     certificatesValid:Certificate[];
-    gitOriginRepo;
+    private _gitOriginRepo;
     constructor(optionsArg: {
         cfEmail: string,
         cfKey: string,
@@ -17,15 +17,33 @@ export class Cert {
         this._cfEmail = optionsArg.cfEmail;
         this._cfKey = optionsArg.cfKey;
         this._sslDir = optionsArg.sslDir;
-        this.gitOriginRepo = optionsArg.gitOriginRepo;
+        this._gitOriginRepo = optionsArg.gitOriginRepo;
         let config = {
             cfEmail: this._cfEmail,
             cfKey: this._cfKey
         }
         plugins.smartfile.memory.toFsSync(JSON.stringify(config),plugins.path.join(__dirname, "assets/config.json"));
+        if(this._gitOriginRepo){
+            plugins.smartgit.init(this._sslDir);
+            plugins.smartgit.remote.add(this._sslDir,"origin",this._gitOriginRepo);
+            this.sslGitOriginPull();
+        }
+    };
+    sslGitOriginPull = () => {
+        if(this._gitOriginRepo){
+            plugins.smartgit.pull(this._sslDir,"origin","master");
+        }
+    };
+    sslGitOriginAddCommitPush = () => {
+        if(this._gitOriginRepo){
+            plugins.smartgit.add.addAll(this._sslDir);
+            plugins.smartgit.commit(this._sslDir,"added new SSL certificates and deleted obsolete ones.");
+            plugins.smartgit.push(this._sslDir,"origin","master");
+        }
     };
     getDomainCert(domainNameArg: string,optionsArg?:{force:boolean}) {
         let done = plugins.q.defer();
+        this.sslGitOriginPull();
         if (!checkDomainsStillValid(domainNameArg) || optionsArg.force) {
             plugins.shelljs.exec("chmod 700 " + paths.letsencryptSh);
             plugins.shelljs.exec("chmod 700 " + paths.certHook);
@@ -34,11 +52,12 @@ export class Cert {
             if(fetchedCertsArray.indexOf(domainNameArg) != -1){
                 updateSslDirSync(this._sslDir,domainNameArg);
             }
+            this.sslGitOriginAddCommitPush();
             done.resolve();
         } else {
             plugins.beautylog.info("certificate for " + domainNameArg + " is still valid! Not fetching new one!");
             done.resolve();
-        }
+        };
         return done.promise;
     };
 }
@@ -90,6 +109,13 @@ let updateSslDirSync = (sslDirArg:string,domainNameArg:string) => {
     };
 }
 
-let updateGitOrigin = () => {
-
+const enum gitSyncDirection {
+    toOrigin,
+    fromOrigin
 }
+
+let updateGitOrigin = (syncDirectionArg:gitSyncDirection) => {
+
+};
+
+updateGitOrigin(gitSyncDirection.toOrigin);
