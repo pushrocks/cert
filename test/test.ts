@@ -34,7 +34,7 @@ describe("cert",function(){
         })
         it("should get a valid certificate",function(done){
             this.timeout(120000);
-            testCert.getDomainCert("hello1.bleu.de").then(() => {
+            testCert.getDomainCert("hello2.bleu.de").then(() => {
                 done();
             });
         })
