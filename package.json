@@ -3,6 +3,7 @@
   "version": "0.0.11",
   "description": "Easily obain SSL certificates from LetsEncrypt. Supports DNS-01 challenge. TypeScript ready.",
   "main": "dist/index.js",
+  "typings":"dist/index.d.ts",
   "scripts": {
     "test": "(npm run cleanTest && npmts)",
     "cleanTest": "(rm -rf ./test/assets)",
