@@ -1,5 +1,12 @@
 /// <reference types="q" />
 import * as plugins from "./cert.plugins";
+export interface CertConstructorOptions {
+    cfEmail: string;
+    cfKey: string;
+    sslDir: string;
+    gitOriginRepo?: string;
+    testMode?: boolean;
+}
 export declare class Cert {
     private _cfEmail;
     private _cfKey;
@@ -8,13 +15,7 @@ export declare class Cert {
     private _testMode;
     certificatesPresent: Certificate[];
     certificatesValid: Certificate[];
-    constructor(optionsArg: {
-        cfEmail: string;
-        cfKey: string;
-        sslDir: string;
-        gitOriginRepo?: string;
-        testMode?: boolean;
-    });
+    constructor(optionsArg: CertConstructorOptions);
     sslGitOriginPull: () => void;
     sslGitOriginAddCommitPush: () => void;
     getDomainCert(domainNameArg: string, optionsArg?: {

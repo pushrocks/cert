@@ -1,6 +1,14 @@
 import * as plugins from "./cert.plugins";
 import * as paths from "./cert.paths";
 
+export interface CertConstructorOptions {
+    cfEmail: string,
+    cfKey: string,
+    sslDir: string,
+    gitOriginRepo?: string,
+    testMode?: boolean
+}; 
+
 export class Cert {
     private _cfEmail: string;
     private _cfKey: string;
@@ -9,13 +17,7 @@ export class Cert {
     private _testMode: boolean
     certificatesPresent: Certificate[];
     certificatesValid: Certificate[];
-    constructor(optionsArg: {
-        cfEmail: string,
-        cfKey: string,
-        sslDir: string,
-        gitOriginRepo?: string,
-        testMode?: boolean
-    }) {
+    constructor(optionsArg:CertConstructorOptions) {
         this._cfEmail = optionsArg.cfEmail;
         this._cfKey = optionsArg.cfKey;
         this._sslDir = optionsArg.sslDir;
