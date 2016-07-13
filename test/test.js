@@ -18,7 +18,7 @@ describe("cert", function () {
     });
     describe("Cert", function () {
         it("should create a new Cert object from class", function () {
-            this.timeout(20000);
+            this.timeout(40000);
             testCert = new cert.Cert({
                 cfEmail: process.env.CF_EMAIL,
                 cfKey: process.env.CF_KEY,
@@ -30,7 +30,7 @@ describe("cert", function () {
         });
         it("should get a valid certificate", function (done) {
             this.timeout(120000);
-            testCert.getDomainCert("hello2.bleu.de").then(function () {
+            testCert.getDomainCert("hello4.bleu.de").then(function () {
                 done();
             });
         });

@@ -77,6 +77,7 @@ export class Cert {
             let fetchedCertsArray: string[] = plugins.smartfile.fs.listFoldersSync(paths.certDir);
             if (fetchedCertsArray.indexOf(domainNameArg) != -1) {
                 updateSslDirSync(this._sslDir, domainNameArg);
+                plugins.smartfile.fs.removeSync(plugins.path.join(paths.certDir,domainNameArg));
             }
             this.sslGitOriginAddCommitPush();
             done.resolve();
