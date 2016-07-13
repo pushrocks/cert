@@ -1,10 +1,10 @@
 import * as plugins from "./cert.plugins";
 import * as paths from "./cert.paths";
 
-export interface CertConstructorOptions {
+export interface ICertConstructorOptions {
     cfEmail: string,
     cfKey: string,
-    sslDir: string,
+    sslDir?: string,
     gitOriginRepo?: string,
     testMode?: boolean
 }; 
@@ -17,7 +17,7 @@ export class Cert {
     private _testMode: boolean
     certificatesPresent: Certificate[];
     certificatesValid: Certificate[];
-    constructor(optionsArg:CertConstructorOptions) {
+    constructor(optionsArg:ICertConstructorOptions) {
         this._cfEmail = optionsArg.cfEmail;
         this._cfKey = optionsArg.cfKey;
         this._sslDir = optionsArg.sslDir;
@@ -32,6 +32,8 @@ export class Cert {
             JSON.stringify(config),
             plugins.path.join(__dirname, "assets/config.json")
         );
+        // setup sslDir
+        if (!this._sslDir) this._sslDir = paths.defaultSslDir;
         // setup Git
         if (this._gitOriginRepo) {
             plugins.smartgit.init(this._sslDir);
