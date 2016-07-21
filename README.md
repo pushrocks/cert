@@ -1,6 +1,9 @@
 # Cert
 Easily obain SSL certificates from LetsEncrypt. Supports DNS-01 challenge. TypeScript ready.
 
+## Status
+[![build status](https://gitlab.com/pushrocks/cert/badges/master/build.svg)](https://gitlab.com/pushrocks/cert/commits/master)
+
 ## Usage 
 
 ```typescript
