@@ -14,9 +14,14 @@ export class Cert {
     private _cfKey: string;
     private _sslDir: string;
     private _gitOriginRepo: string;
-    private _testMode: boolean
+    private _testMode: boolean;
+    domainsCurrentlyRequesting: string[] = [];
     certificatesPresent: Certificate[];
     certificatesValid: Certificate[];
+    
+    /**
+     * Constructor for Cert object
+     */
     constructor(optionsArg:ICertConstructorOptions) {
         this._cfEmail = optionsArg.cfEmail;
         this._cfKey = optionsArg.cfKey;
@@ -51,12 +56,23 @@ export class Cert {
             leShConfigString,
             paths.leShConfig
         );
+        plugins.shelljs.exec("chmod 700 " + paths.letsencryptSh);
+        plugins.shelljs.exec("chmod 700 " + paths.certHook);
+        plugins.shelljs.exec(`bash -c "${paths.letsencryptSh}`);
     };
+
+    /**
+     * Pulls already requested certificates from git origin
+     */
     sslGitOriginPull = () => {
         if (this._gitOriginRepo) {
             plugins.smartgit.pull(this._sslDir, "origin", "master");
         }
     };
+
+    /**
+     * Pushes all new requested certificates to git origin
+     */
     sslGitOriginAddCommitPush = () => {
         if (this._gitOriginRepo) {
             plugins.smartgit.add.addAll(this._sslDir);
@@ -64,23 +80,31 @@ export class Cert {
             plugins.smartgit.push(this._sslDir, "origin", "master");
         }
     };
+
+    /**
+     * gets a ssl cert for a given domain
+     */
     getDomainCert(domainNameArg: string, optionsArg: { force: boolean } = { force: false }) {
         let done = plugins.q.defer();
-        this.sslGitOriginPull();
         if (!checkDomainsStillValid(domainNameArg, this._sslDir) || optionsArg.force) {
-            plugins.shelljs.exec("chmod 700 " + paths.letsencryptSh);
-            plugins.shelljs.exec("chmod 700 " + paths.certHook);
             plugins.smartfile.fs.ensureDir(paths.certDir);
+            plugins.beautylog.info(`getting cert for ${domainNameArg}`);
             plugins.shelljs.exec(
-                `bash -c "${paths.letsencryptSh} -c -f ${paths.leShConfig} -d ${domainNameArg} -t dns-01 -k ${paths.certHook} -o ${paths.certDir}"`
+                `bash -c "${paths.letsencryptSh} -c --no-lock -f ${paths.leShConfig} -d ${domainNameArg} -t dns-01 -k ${paths.certHook} -o ${paths.certDir}"`,
+                {
+                    silent: true,
+                    async:true
+                },
+                (codeArg, stdoutArg) => {
+                    console.log(stdoutArg);
+                    let fetchedCertsArray: string[] = plugins.smartfile.fs.listFoldersSync(paths.certDir);
+                    if (fetchedCertsArray.indexOf(domainNameArg) != -1) {
+                        updateSslDirSync(this._sslDir, domainNameArg);
+                        plugins.smartfile.fs.removeSync(plugins.path.join(paths.certDir,domainNameArg));
+                    }
+                    done.resolve();
+                }
             );
-            let fetchedCertsArray: string[] = plugins.smartfile.fs.listFoldersSync(paths.certDir);
-            if (fetchedCertsArray.indexOf(domainNameArg) != -1) {
-                updateSslDirSync(this._sslDir, domainNameArg);
-                plugins.smartfile.fs.removeSync(plugins.path.join(paths.certDir,domainNameArg));
-            }
-            this.sslGitOriginAddCommitPush();
-            done.resolve();
         } else {
             plugins.beautylog.info("certificate for " + domainNameArg + " is still valid! Not fetching new one!");
             done.resolve();

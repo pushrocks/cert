@@ -16,10 +16,10 @@ let myCert = new Cert({
 myCert.getDomainCert("example.com");
 ```
 
-### sslDir
+## sslDir
 to use the certificates it is important to understand what the structure of the ssl directory looks like.
 
-### using a git origin repo.
+## using a git origin repo.
 Often times you want to keep track of certificates in order to keep them
 even if the point of initial certificate request is gone. Imagine you have a dockerenvironement
 and you keep starting new container versions for the same domain. YOu ideally want to use a proxy
@@ -27,3 +27,8 @@ that handles SSL managemet for you. But even the proxy needs to be updated from 
 
 So you need some kind of persistence between versions. This is why you can sync up all certificates to a git repo over ssh
 Just make sure your id_rsa is in place for the node user and is allowed for the origin repo.
+
+## Environment
+Since cert relies on [letsencrypt.sh](https://github.com/lukas2511/letsencrypt.sh) in the background bash is needed on the system.
+If you plan on using this on Windows check out [npmdocker](https://www.npmjs.com/package/npmdocker) which runs node programs in docker.
+As of summer 2016 Windows will also ship with bash nativly included.

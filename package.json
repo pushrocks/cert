@@ -27,24 +27,24 @@
   },
   "homepage": "https://gitlab.com/pushrocks/cert#readme",
   "dependencies": {
-    "@types/minimatch": "*",
-    "@types/q": "*",
-    "@types/shelljs": "*",
-    "beautylog": "^5.0.13",
+    "@types/minimatch": "^2.0.28",
+    "@types/q": "^0.0.27",
+    "@types/shelljs": "^0.3.27",
+    "beautylog": "^5.0.14",
     "cflare": "0.0.9",
     "fs-extra": "^0.30.0",
     "q": "^1.4.1",
     "shelljs": "^0.7.0",
     "smartcli": "^1.0.4",
-    "smartfile": "^4.0.10",
-    "smartgit": "0.1.8",
-    "smartstring": "^2.0.10",
+    "smartfile": "^4.0.12",
+    "smartgit": "0.1.9",
+    "smartstring": "^2.0.15",
     "typings-global": "^1.0.6"
   },
   "devDependencies": {
     "npmts-g": "^5.2.6",
     "qenv": "^1.0.8",
-    "should": "^9.0.2",
+    "should": "^10.0.0",
     "typings-test": "^1.0.1"
   }
 }

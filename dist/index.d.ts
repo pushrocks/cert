@@ -13,11 +13,24 @@ export declare class Cert {
     private _sslDir;
     private _gitOriginRepo;
     private _testMode;
+    domainsCurrentlyRequesting: string[];
     certificatesPresent: Certificate[];
     certificatesValid: Certificate[];
+    /**
+     * Constructor for Cert object
+     */
     constructor(optionsArg: ICertConstructorOptions);
+    /**
+     * Pulls already requested certificates from git origin
+     */
     sslGitOriginPull: () => void;
+    /**
+     * Pushes all new requested certificates to git origin
+     */
     sslGitOriginAddCommitPush: () => void;
+    /**
+     * gets a ssl cert for a given domain
+     */
     getDomainCert(domainNameArg: string, optionsArg?: {
         force: boolean;
     }): plugins.q.Promise<{}>;

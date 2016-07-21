@@ -2,7 +2,7 @@ import "typings-test";
 import "should";
 import {Qenv} from "qenv";
 import path = require("path");
-
+import q = require("q");
 import {startInstall} from "../dist/install";
 import * as cert from "../dist/index";
 
@@ -34,7 +34,11 @@ describe("cert",function(){
         })
         it("should get a valid certificate",function(done){
             this.timeout(120000);
-            testCert.getDomainCert("hello4.bleu.de").then(() => {
+            let promiseArray = [];
+            promiseArray.push(testCert.getDomainCert("testing1.bleu.de"));
+            //promiseArray.push(testCert.getDomainCert("testing2.bleu.de"));
+            //promiseArray.push(testCert.getDomainCert("testing3.bleu.de"));
+            q.all(promiseArray).then(() => {
                 done();
             });
         })
