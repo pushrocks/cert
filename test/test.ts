@@ -33,11 +33,14 @@ describe("cert",function(){
             testCert.should.be.instanceof(cert.Cert);
         })
         it("should get a valid certificate",function(done){
-            this.timeout(120000);
+            this.timeout(400000);
             let promiseArray = [];
-            promiseArray.push(testCert.getDomainCert("testing8.bleu.de"));
-            promiseArray.push(testCert.getDomainCert("testing9.bleu.de"));
-            promiseArray.push(testCert.getDomainCert("testing10.bleu.de"));
+            function getRandomArbitrary(min, max) {
+                return Math.floor(Math.random() * (max - min) + min);
+            }
+            promiseArray.push(testCert.getDomainCert(`testing${getRandomArbitrary(1,100000)}.bleu.de`));
+            promiseArray.push(testCert.getDomainCert(`testing${getRandomArbitrary(1,100000)}.bleu.de`));
+            promiseArray.push(testCert.getDomainCert(`testing${getRandomArbitrary(1,100000)}.bleu.de`));
             q.all(promiseArray).then(() => {
                 done();
             });
