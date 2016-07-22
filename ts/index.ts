@@ -1,5 +1,6 @@
 import * as plugins from "./cert.plugins";
 import * as paths from "./cert.paths";
+import * as helpers from "./cert.helpers"
 
 export interface ICertConstructorOptions {
     cfEmail: string,
@@ -7,7 +8,7 @@ export interface ICertConstructorOptions {
     sslDir?: string,
     gitOriginRepo?: string,
     testMode?: boolean
-}; 
+};
 
 export class Cert {
     private _cfEmail: string;
@@ -15,14 +16,14 @@ export class Cert {
     private _sslDir: string;
     private _gitOriginRepo: string;
     private _testMode: boolean;
-    domainsCurrentlyRequesting: string[] = [];
+    domainsCurrentlyRequesting: plugins.lik.Stringmap = new plugins.lik.Stringmap();
     certificatesPresent: Certificate[];
     certificatesValid: Certificate[];
-    
+
     /**
      * Constructor for Cert object
      */
-    constructor(optionsArg:ICertConstructorOptions) {
+    constructor(optionsArg: ICertConstructorOptions) {
         this._cfEmail = optionsArg.cfEmail;
         this._cfKey = optionsArg.cfKey;
         this._sslDir = optionsArg.sslDir;
@@ -58,7 +59,6 @@ export class Cert {
         );
         plugins.shelljs.exec("chmod 700 " + paths.letsencryptSh);
         plugins.shelljs.exec("chmod 700 " + paths.certHook);
-        plugins.shelljs.exec(`bash -c "${paths.letsencryptSh}`);
     };
 
     /**
@@ -86,29 +86,40 @@ export class Cert {
      */
     getDomainCert(domainNameArg: string, optionsArg: { force: boolean } = { force: false }) {
         let done = plugins.q.defer();
-        if (!checkDomainsStillValid(domainNameArg, this._sslDir) || optionsArg.force) {
-            plugins.smartfile.fs.ensureDir(paths.certDir);
-            plugins.beautylog.info(`getting cert for ${domainNameArg}`);
-            plugins.shelljs.exec(
-                `bash -c "${paths.letsencryptSh} -c --no-lock -f ${paths.leShConfig} -d ${domainNameArg} -t dns-01 -k ${paths.certHook} -o ${paths.certDir}"`,
-                {
-                    silent: true,
-                    async:true
-                },
-                (codeArg, stdoutArg) => {
-                    console.log(stdoutArg);
-                    let fetchedCertsArray: string[] = plugins.smartfile.fs.listFoldersSync(paths.certDir);
-                    if (fetchedCertsArray.indexOf(domainNameArg) != -1) {
-                        updateSslDirSync(this._sslDir, domainNameArg);
-                        plugins.smartfile.fs.removeSync(plugins.path.join(paths.certDir,domainNameArg));
-                    }
+        // make sure no one else requires the same domain at the same time
+        helpers.accountsKeyPresent().then(() => {
+            if (!this.domainsCurrentlyRequesting.checkString(domainNameArg)) {
+                this.domainsCurrentlyRequesting.addString(domainNameArg);
+                if (!checkDomainsStillValid(domainNameArg, this._sslDir) || optionsArg.force) {
+                    plugins.smartfile.fs.ensureDir(paths.certDir);
+                    plugins.beautylog.info(`getting cert for ${domainNameArg}`);
+                    plugins.shelljs.exec(
+                        `bash -c "${paths.letsencryptSh} -c --no-lock -f ${paths.leShConfig} -d ${domainNameArg} -t dns-01 -k ${paths.certHook} -o ${paths.certDir}"`,
+                        {
+                            silent: true,
+                            async: true
+                        },
+                        (codeArg, stdoutArg) => {
+                            console.log(stdoutArg);
+                            let fetchedCertsArray: string[] = plugins.smartfile.fs.listFoldersSync(paths.certDir);
+                            if (fetchedCertsArray.indexOf(domainNameArg) != -1) {
+                                updateSslDirSync(this._sslDir, domainNameArg);
+                                plugins.smartfile.fs.removeSync(plugins.path.join(paths.certDir, domainNameArg));
+                            }
+                            this.domainsCurrentlyRequesting.removeString(domainNameArg);
+                            done.resolve();
+                        }
+                    );
+                } else {
+                    plugins.beautylog.info("certificate for " + domainNameArg + " is still valid! Not fetching new one!");
+                    this.domainsCurrentlyRequesting.removeString(domainNameArg);
                     done.resolve();
-                }
-            );
-        } else {
-            plugins.beautylog.info("certificate for " + domainNameArg + " is still valid! Not fetching new one!");
-            done.resolve();
-        };
+                };
+            } else {
+                plugins.beautylog.warn(`${domainNameArg} is already requesting`);
+            };
+        });
+
         return done.promise;
     };
     cleanOldCertificates() {
@@ -132,8 +143,8 @@ interface certConfig {
 }
 
 let checkDomainsStillValid = (domainNameArg: string, sslDirArg: string): boolean => {
-    let domainConfigPath = plugins.path.join(sslDirArg, domainNameArg,"config.json");
-    if (plugins.smartfile.fs.fileExistsSync(domainConfigPath)){
+    let domainConfigPath = plugins.path.join(sslDirArg, domainNameArg, "config.json");
+    if (plugins.smartfile.fs.fileExistsSync(domainConfigPath)) {
         let domainConfig = plugins.smartfile.fs.toObjectSync(
             domainConfigPath,
             "json"

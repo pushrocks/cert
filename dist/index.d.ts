@@ -13,7 +13,7 @@ export declare class Cert {
     private _sslDir;
     private _gitOriginRepo;
     private _testMode;
-    domainsCurrentlyRequesting: string[];
+    domainsCurrentlyRequesting: plugins.lik.Stringmap;
     certificatesPresent: Certificate[];
     certificatesValid: Certificate[];
     /**

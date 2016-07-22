@@ -2,6 +2,7 @@ import "typings-global";
 export import beautylog = require("beautylog");
 export import cflare = require("cflare");
 export let fs = require("fs-extra");
+export import lik = require("lik");
 export import path = require("path");
 export import q = require("q");
 export import shelljs = require("shelljs");

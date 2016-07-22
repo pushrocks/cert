@@ -1,0 +1,16 @@
+"use strict";
+const plugins = require("./cert.plugins");
+let firstCall = true;
+exports.accountsKeyPresent = () => {
+    let done = plugins.q.defer();
+    if (firstCall) {
+        done.resolve();
+        firstCall = false;
+    }
+    else {
+        setTimeout(done.resolve, 5000);
+    }
+    ;
+    return done.promise;
+};
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiY2VydC5oZWxwZXJzLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vdHMvY2VydC5oZWxwZXJzLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7QUFBQSxNQUFZLE9BQU8sV0FBTSxnQkFBZ0IsQ0FBQyxDQUFBO0FBRzFDLElBQUksU0FBUyxHQUFHLElBQUksQ0FBQztBQUNWLDBCQUFrQixHQUFHO0lBQzVCLElBQUksSUFBSSxHQUFHLE9BQU8sQ0FBQyxDQUFDLENBQUMsS0FBSyxFQUFFLENBQUM7SUFDN0IsRUFBRSxDQUFDLENBQUMsU0FBUyxDQUFDLENBQUMsQ0FBQztRQUNaLElBQUksQ0FBQyxPQUFPLEVBQUUsQ0FBQztRQUNmLFNBQVMsR0FBRyxLQUFLLENBQUM7SUFDdEIsQ0FBQztJQUFDLElBQUksQ0FBQyxDQUFDO1FBQ0osVUFBVSxDQUFDLElBQUksQ0FBQyxPQUFPLEVBQUUsSUFBSSxDQUFDLENBQUM7SUFDbkMsQ0FBQztJQUFBLENBQUM7SUFFRixNQUFNLENBQUMsSUFBSSxDQUFDLE9BQU8sQ0FBQztBQUN4QixDQUFDLENBQUMifQ==
