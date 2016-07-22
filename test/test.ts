@@ -39,8 +39,8 @@ describe("cert",function(){
                 return Math.floor(Math.random() * (max - min) + min);
             }
             promiseArray.push(testCert.getDomainCert(`testing${getRandomArbitrary(1,100000)}.bleu.de`));
-            promiseArray.push(testCert.getDomainCert(`testing${getRandomArbitrary(1,100000)}.bleu.de`));
-            promiseArray.push(testCert.getDomainCert(`testing${getRandomArbitrary(1,100000)}.bleu.de`));
+            //promiseArray.push(testCert.getDomainCert(`testing${getRandomArbitrary(1,100000)}.bleu.de`));
+            //promiseArray.push(testCert.getDomainCert(`testing${getRandomArbitrary(1,100000)}.bleu.de`));
             q.all(promiseArray).then(() => {
                 done();
             });
