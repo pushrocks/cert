@@ -96,18 +96,23 @@ export class Cert {
                     plugins.shelljs.exec(
                         `bash -c "${paths.letsencryptSh} -c --no-lock -f ${paths.leShConfig} -d ${domainNameArg} -t dns-01 -k ${paths.certHook} -o ${paths.certDir}"`,
                         {
-                            silent: true,
-                            async: true
+                            silent: true
                         },
                         (codeArg, stdoutArg) => {
-                            console.log(stdoutArg);
-                            let fetchedCertsArray: string[] = plugins.smartfile.fs.listFoldersSync(paths.certDir);
-                            if (fetchedCertsArray.indexOf(domainNameArg) != -1) {
-                                updateSslDirSync(this._sslDir, domainNameArg);
-                                plugins.smartfile.fs.removeSync(plugins.path.join(paths.certDir, domainNameArg));
+                            if (codeArg == 0) {
+                                console.log(stdoutArg);
+                                let fetchedCertsArray: string[] = plugins.smartfile.fs.listFoldersSync(paths.certDir);
+                                if (fetchedCertsArray.indexOf(domainNameArg) != -1) {
+                                    updateSslDirSync(this._sslDir, domainNameArg);
+                                    plugins.smartfile.fs.removeSync(plugins.path.join(paths.certDir, domainNameArg));
+                                }
+                                this.domainsCurrentlyRequesting.removeString(domainNameArg);
+                                done.resolve();
+                            } else {
+                                this.domainsCurrentlyRequesting.removeString(domainNameArg);
+                                plugins.beautylog.warn(`${domainNameArg} scheduled for retry`);
+                                helpers.scheduleRetry(domainNameArg,this).then(done.resolve);
                             }
-                            this.domainsCurrentlyRequesting.removeString(domainNameArg);
-                            done.resolve();
                         }
                     );
                 } else {

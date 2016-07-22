@@ -35,9 +35,9 @@ describe("cert",function(){
         it("should get a valid certificate",function(done){
             this.timeout(120000);
             let promiseArray = [];
-            promiseArray.push(testCert.getDomainCert("testing1.bleu.de"));
-            promiseArray.push(testCert.getDomainCert("testing2.bleu.de"));
-            promiseArray.push(testCert.getDomainCert("testing3.bleu.de"));
+            promiseArray.push(testCert.getDomainCert("testing8.bleu.de"));
+            promiseArray.push(testCert.getDomainCert("testing9.bleu.de"));
+            promiseArray.push(testCert.getDomainCert("testing10.bleu.de"));
             q.all(promiseArray).then(() => {
                 done();
             });
