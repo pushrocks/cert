@@ -16,8 +16,10 @@ let myCert = new Cert({
     gitOriginRepo: "git@githhub.com/someuser/somereopo" // good for persistence in highly volatile environments like docker
 });
 
-myCert.getDomainCert("example.com");
+myCert.getDomainCert("example.com"); // returns promise
 ```
+
+> **Note:** cert supports async parallel cert fetching. If called twice for the same domain, only the first one will trigger.
 
 ## sslDir
 to use the certificates it is important to understand what the structure of the ssl directory looks like.
