@@ -9,7 +9,7 @@ exports.scheduleRetry = (domainArg, certClassArg) => {
     setTimeout(() => {
         certClassArg.getDomainCert(domainArg)
             .then(done.resolve);
-    }, 20000);
+    }, 60000);
     return done.promise;
 };
 /**

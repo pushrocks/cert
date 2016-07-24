@@ -115,7 +115,7 @@ export class Cert {
                                 };
                                 done.resolve();
                             } else {
-                                plugins.beautylog.warn(`${domainNameArg} scheduled for retry`);
+                                plugins.beautylog.warn(`${domainNameArg} scheduled for retry. Waiting 1 minute!`);
                                 helpers.scheduleRetry(domainNameArg, this).then(done.resolve);
                             }
                             this.domainCertRequestMap.removeString(domainNameArg);

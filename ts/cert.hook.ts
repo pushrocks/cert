@@ -30,12 +30,15 @@ let cleanChallenge = (domainNameArg) => {
     let done = plugins.q.defer();
     plugins.beautylog.log("cleaning challenge for " + domainNameArg);
     cflare.removeRecord(prefixName(domainNameArg), "TXT");
+    cooldown().then(() => {
+        done.resolve();
+    });
     return done.promise;
 }
 
 let cooldown = () => {
     let done = plugins.q.defer();
-    let cooldowntime = 40000;
+    let cooldowntime = 60000;
     let passedTime = 0;
     plugins.beautylog.log("Cooling down! " + (cooldowntime/1000).toString() + " seconds left");
     let coolDownCounter = () => {

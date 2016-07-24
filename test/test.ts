@@ -33,7 +33,7 @@ describe("cert",function(){
             testCert.should.be.instanceof(cert.Cert);
         })
         it("should get a valid certificate",function(done){
-            this.timeout(400000);
+            this.timeout(1200000);
             let promiseArray = [];
             function getRandomArbitrary(min, max) {
                 return Math.floor(Math.random() * (max - min) + min);

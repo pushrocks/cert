@@ -12,7 +12,7 @@ export let scheduleRetry = (domainArg:string,certClassArg:Cert) => {
     setTimeout(() => {
         certClassArg.getDomainCert(domainArg)
             .then(done.resolve);
-    },20000);
+    },60000);
     return done.promise;
 };
 
