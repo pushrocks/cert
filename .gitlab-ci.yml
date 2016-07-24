@@ -4,7 +4,10 @@ stages:
   - test1
   - test2
   - release
-    
+
+before_script:
+  - npmci prepare ssh
+
 testLTS:
   stage: test1
   script:
