@@ -19,7 +19,9 @@ let myCert = new Cert({
 myCert.getDomainCert("example.com"); // returns promise
 ```
 
-> **Note:** cert supports async parallel cert fetching. If called twice for the same domain, only the first one will trigger.
+> **Note:** cert supports async parallel cert fetching.
+However any subsequent calls will wait for the queue of the same dns zone to clear.
+In other words: test1.domain1.tld and test2.domain2.tld will run in parallel, but test2.domain1.tld will wait for test1.domain1.tld !
 
 ## sslDir
 to use the certificates it is important to understand what the structure of the ssl directory looks like.

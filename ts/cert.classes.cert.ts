@@ -98,6 +98,7 @@ export class Cert {
             this.domainCertRequestMap.addString(domainNameArg);
             if (!helpers.checkDomainsStillValid(domainNameArg, this._sslDir) || optionsArg.force) {
                 if (!sameZoneRequesting) {
+                    this.sslGitOriginPull();
                     plugins.smartfile.fs.ensureDir(paths.certDir);
                     plugins.beautylog.info(`getting cert for ${domainNameArg}`);
                     plugins.shelljs.exec(
@@ -112,6 +113,9 @@ export class Cert {
                                 if (fetchedCertsArray.indexOf(domainNameArg) != -1) {
                                     helpers.updateSslDirSync(this._sslDir, domainNameArg);
                                     plugins.smartfile.fs.removeSync(plugins.path.join(paths.certDir, domainNameArg));
+                                    this.sslGitOriginAddCommitPush();
+                                } else {
+                                    plugins.beautylog.error(`Couldn't copy final certificate for ${domainNameArg}!`);
                                 };
                                 done.resolve();
                             } else {
