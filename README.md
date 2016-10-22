@@ -1,8 +1,21 @@
 # Cert
 Easily obain SSL certificates from LetsEncrypt. Supports DNS-01 challenge. TypeScript ready.
 
-## Status
+## Availabililty
+[![npm](https://push.rocks/assets/repo-button-npm.svg)](https://www.npmjs.com/package/cert)
+[![git](https://push.rocks/assets/repo-button-git.svg)](https://gitlab.com/pushrocks/cert)
+[![git](https://push.rocks/assets/repo-button-mirror.svg)](https://github.com/pushrocks/cert)
+[![docs](https://push.rocks/assets/repo-button-docs.svg)](https://pushrocks.gitlab.io/cert/)
+
+## Status for master
 [![build status](https://gitlab.com/pushrocks/cert/badges/master/build.svg)](https://gitlab.com/pushrocks/cert/commits/master)
+[![coverage report](https://gitlab.com/pushrocks/cert/badges/master/coverage.svg)](https://gitlab.com/pushrocks/cert/commits/master)
+[![Dependency Status](https://david-dm.org/pushrocks/cert.svg)](https://david-dm.org/pushrocks/cert)
+[![bitHound Dependencies](https://www.bithound.io/github/pushrocks/cert/badges/dependencies.svg)](https://www.bithound.io/github/pushrocks/cert/master/dependencies/npm)
+[![bitHound Code](https://www.bithound.io/github/pushrocks/cert/badges/code.svg)](https://www.bithound.io/github/pushrocks/cert)
+[![TypeScript](https://img.shields.io/badge/TypeScript-2.x-blue.svg)](https://nodejs.org/dist/latest-v6.x/docs/api/)
+[![node](https://img.shields.io/badge/node->=%206.x.x-blue.svg)](https://nodejs.org/dist/latest-v6.x/docs/api/)
+[![JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 
 ## Usage 
 
@@ -35,7 +48,4 @@ that handles SSL managemet for you. But even the proxy needs to be updated from 
 So you need some kind of persistence between versions. This is why you can sync up all certificates to a git repo over ssh
 Just make sure your id_rsa is in place for the node user and is allowed for the origin repo.
 
-## Environment
-Since cert relies on [letsencrypt.sh](https://github.com/lukas2511/letsencrypt.sh) in the background bash is needed on the system.
-If you plan on using this on Windows check out [npmdocker](https://www.npmjs.com/package/npmdocker) which runs node programs in docker.
-As of summer 2016 Windows will also ship with bash nativly included.
+[![npm](https://push.rocks/assets/repo-header.svg)](https://push.rocks)
