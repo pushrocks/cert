@@ -28,11 +28,12 @@
   "homepage": "https://gitlab.com/pushrocks/cert#readme",
   "dependencies": {
     "@types/minimatch": "2.x.x",
-    "@types/q": "0.x.x",
+    "@types/q": "0.0.32",
     "@types/shelljs": "0.x.x",
     "beautylog": "^6.0.0",
     "cflare": "0.0.10",
     "fs-extra": "^0.30.0",
+    "letsencrypt": "^2.1.8",
     "lik": "^1.0.24",
     "q": "^1.4.1",
     "shelljs": "^0.7.4",

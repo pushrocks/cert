@@ -1,6 +1,3 @@
-#!/usr/bin/env node
-// the shebang line above makes sure this script will get interpreted by node
-
 import * as plugins from "./cert.plugins";
 import * as paths from "./cert.paths";
 
