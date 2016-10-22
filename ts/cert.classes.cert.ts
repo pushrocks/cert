@@ -20,6 +20,7 @@ export class Cert {
     private _sslDir: string
     private _gitOriginRepo: string
     private _testMode: boolean
+    private letsencryptInstance
 
     /**
      * Constructor for Cert object
