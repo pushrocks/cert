@@ -30,22 +30,22 @@
     "@types/minimatch": "2.x.x",
     "@types/q": "0.x.x",
     "@types/shelljs": "0.x.x",
-    "beautylog": "^5.0.18",
-    "cflare": "0.0.9",
+    "beautylog": "^6.0.0",
+    "cflare": "0.0.10",
     "fs-extra": "^0.30.0",
-    "lik": "^1.0.5",
+    "lik": "^1.0.24",
     "q": "^1.4.1",
-    "shelljs": "^0.7.1",
-    "smartcli": "^1.0.4",
-    "smartfile": "^4.0.12",
+    "shelljs": "^0.7.4",
+    "smartcli": "^1.0.10",
+    "smartfile": "^4.0.24",
     "smartgit": "0.1.9",
-    "smartstring": "^2.0.15",
-    "typings-global": "^1.0.6"
+    "smartstring": "^2.0.17",
+    "typings-global": "^1.0.14"
   },
   "devDependencies": {
-    "npmts-g": "^5.2.6",
-    "qenv": "^1.0.8",
-    "should": "^10.0.0",
-    "typings-test": "^1.0.1"
+    "npmts-g": "^5.2.8",
+    "qenv": "^1.1.1",
+    "should": "^11.1.1",
+    "typings-test": "^1.0.3"
   }
 }
