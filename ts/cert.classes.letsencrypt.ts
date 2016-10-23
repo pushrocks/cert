@@ -41,11 +41,11 @@ export class Letsencrypt {
             challenges: { 'dns-01': this._leChallengeHandler() },
             challengeType: 'dns-01',
             configDir: paths.leConfigDir,
-            privkeyPath: ':configDir/live/:hostname/privkey.pem', //
-            fullchainPath: ':configDir/live/:hostname/fullchain.pem', // Note: both that :config and :hostname
-            certPath: ':config/live/:hostname/cert.pem', // will be templated as expected
-            chainPath: ':config/live/:hostname/chain.pem',
-            agreeToTerms: this._leAgree,
+            privkeyPath: ':configDir/live/:hostname/privkey.pem',
+            fullchainPath: ':configDir/live/:hostname/fullchain.pem',
+            certPath: ':configDir/live/:hostname/cert.pem',
+            chainPath: ':configDir/live/:hostname/chain.pem',
+            agreeToTerms: true,
             debug: true
         })
     }
@@ -57,6 +57,7 @@ export class Letsencrypt {
         plugins.beautylog.log(`trying to register domain ${domainNameArg}`)
         let done = q.defer()
         console.log('test')
+        console.log(this._leServerUrl)
         this._leInstance.register({
             domains: [domainNameArg],
             email: 'domains@lossless.org',
@@ -91,7 +92,7 @@ export class Letsencrypt {
      */
     private _leChallengeHandler() {
         return {
-            getOptions: (...args) => {
+            getOptions: () => {
                 return {
                     debug: true
                 }
@@ -120,10 +121,7 @@ export class Letsencrypt {
                         cb()
                     })
             },
-            loopback: (args, domain, challenge, cb) => {
-                console.log(args)
-                console.log(domain)
-                console.log(challenge)
+            loopback: (opts, domain, token, keyAuthorization, cb) => {
                 cb()
             },
             test: (defaults, domain, challenge, cb) => {
