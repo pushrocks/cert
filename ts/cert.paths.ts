@@ -1,14 +1,9 @@
-import * as plugins from "./cert.plugins";
+import * as plugins from './cert.plugins'
 
-//dirs
-export let certDir = plugins.path.join(__dirname,"assets/certs");
-export let defaultSslDir = plugins.path.join(__dirname,"assets/defaultSslDir");
-export let assetDir = plugins.path.join(__dirname,"assets/");
-export let accountsDir = plugins.path.join(__dirname,"assets/accounts/");
-
-// files
-export let certHook = plugins.path.join(__dirname,"cert.hook.js");
-export let config = plugins.path.join(__dirname,"assets/config.json");
-export let leShConfig = plugins.path.join(__dirname,"assets/leshconfig.json");
-export let letsencryptSh = plugins.path.join(__dirname,"assets/letsencrypt.sh");
-
+// dirs
+export let projectDir = plugins.path.join(__dirname,'../')
+export let assetDir = plugins.path.join(projectDir,'assets')
+export let defaultSslDir = plugins.path.join(assetDir,'defaultSslDir')
+export let leConfigDir = plugins.path.join(assetDir,'letsencrypt')
+plugins.smartfile.fs.ensureDirSync(leConfigDir)
+plugins.smartfile.fs.ensureDirSync(defaultSslDir)

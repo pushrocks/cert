@@ -1,0 +1,3 @@
+helpers.updateSslDirSync(this._sslDir, domainNameArg)
+helpers.scheduleRetry(domainNameArg, this).then(done.resolve)
+this.domainCertRequestMap.removeString(domainNameArg)

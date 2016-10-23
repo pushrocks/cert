@@ -7,7 +7,6 @@
   "scripts": {
     "test": "(npm run cleanTest && npmts)",
     "cleanTest": "(rm -rf ./test/assets)",
-    "install": "node dist/install.js install",
     "compile": "(npmts --notest)"
   },
   "repository": {
@@ -29,14 +28,13 @@
   "dependencies": {
     "@types/minimatch": "2.x.x",
     "@types/q": "0.0.32",
-    "@types/shelljs": "0.x.x",
     "beautylog": "^6.0.0",
     "cflare": "0.0.10",
     "fs-extra": "^0.30.0",
+    "le-store-certbot": "^2.0.3",
     "letsencrypt": "^2.1.8",
     "lik": "^1.0.24",
     "q": "^1.4.1",
-    "shelljs": "^0.7.4",
     "smartcli": "^1.0.10",
     "smartfile": "^4.0.24",
     "smartgit": "0.1.9",
@@ -44,6 +42,7 @@
     "typings-global": "^1.0.14"
   },
   "devDependencies": {
+    "@types/should": "^8.1.30",
     "npmts-g": "^5.2.8",
     "qenv": "^1.1.1",
     "should": "^11.1.1",

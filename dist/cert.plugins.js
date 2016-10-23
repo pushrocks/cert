@@ -1,14 +1,25 @@
 "use strict";
 require("typings-global");
-exports.beautylog = require("beautylog");
-exports.cflare = require("cflare");
-exports.fs = require("fs-extra");
-exports.lik = require("lik");
-exports.path = require("path");
-exports.q = require("q");
-exports.shelljs = require("shelljs");
-exports.smartcli = require("smartcli");
-exports.smartfile = require("smartfile");
-exports.smartgit = require("smartgit");
-exports.smartstring = require("smartstring");
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiY2VydC5wbHVnaW5zLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vdHMvY2VydC5wbHVnaW5zLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7QUFBQSwwQkFBd0I7QUFDeEIseUNBQStDO0FBQy9DLG1DQUF5QztBQUM5QixRQUFBLEVBQUUsR0FBRyxPQUFPLENBQUMsVUFBVSxDQUFDLENBQUM7QUFDcEMsNkJBQW1DO0FBQ25DLCtCQUFxQztBQUNyQyx5QkFBK0I7QUFDL0IscUNBQTJDO0FBQzNDLHVDQUE2QztBQUM3Qyx5Q0FBK0M7QUFDL0MsdUNBQTZDO0FBQzdDLDZDQUFtRCJ9
+const beautylog = require("beautylog");
+exports.beautylog = beautylog;
+const cflare = require("cflare");
+exports.cflare = cflare;
+let fs = require('fs-extra');
+exports.fs = fs;
+const lik = require("lik");
+exports.lik = lik;
+const path = require("path");
+exports.path = path;
+const q = require("q");
+exports.q = q;
+const shelljs = require("shelljs");
+exports.shelljs = shelljs;
+const smartcli = require("smartcli");
+exports.smartcli = smartcli;
+const smartfile = require("smartfile");
+exports.smartfile = smartfile;
+const smartgit = require("smartgit");
+exports.smartgit = smartgit;
+const smartstring = require("smartstring");
+exports.smartstring = smartstring;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiY2VydC5wbHVnaW5zLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vdHMvY2VydC5wbHVnaW5zLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7QUFBQSwwQkFBdUI7QUFDdkIsdUNBQXNDO0FBYWxDLG9CQWJRLFNBQVMsQ0FhUjtBQVpiLGlDQUFnQztBQWE1QixpQkFiUSxNQUFNLENBYVI7QUFaVixJQUFJLEVBQUUsR0FBRyxPQUFPLENBQUMsVUFBVSxDQUFDLENBQUE7QUFheEIsYUFiQSxFQUFFLENBYUE7QUFaTiwyQkFBMEI7QUFhdEIsY0FiUSxHQUFHLENBYVI7QUFaUCw2QkFBNEI7QUFheEIsZUFiUSxJQUFJLENBYVI7QUFaUix1QkFBc0I7QUFhbEIsWUFiUSxDQUFDLENBYVI7QUFaTCxtQ0FBa0M7QUFhOUIsa0JBYlEsT0FBTyxDQWFSO0FBWlgscUNBQW9DO0FBYWhDLG1CQWJRLFFBQVEsQ0FhUjtBQVpaLHVDQUFzQztBQWFsQyxvQkFiUSxTQUFTLENBYVI7QUFaYixxQ0FBb0M7QUFhaEMsbUJBYlEsUUFBUSxDQWFSO0FBWlosMkNBQTBDO0FBYXRDLHNCQWJRLFdBQVcsQ0FhUiJ9

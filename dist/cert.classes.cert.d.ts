@@ -1,44 +1,37 @@
 /// <reference types="q" />
-import * as plugins from "./cert.plugins";
+import * as q from 'q';
+import { Stringmap, Objectmap } from 'lik';
+import { Certificate } from './cert.classes.certificate';
+import { Letsencrypt, TLeEnv } from './cert.classes.letsencrypt';
 export interface ICertConstructorOptions {
     cfEmail: string;
     cfKey: string;
-    sslDir?: string;
+    sslDirPath?: string;
     gitOriginRepo?: string;
-    testMode?: boolean;
+    leEnv?: TLeEnv;
 }
 export declare class Cert {
-    private _cfEmail;
-    private _cfKey;
-    private _sslDir;
-    private _gitOriginRepo;
-    private _testMode;
-    domainCertRequestMap: plugins.lik.Stringmap;
-    certificatesPresent: Certificate[];
-    certificatesValid: Certificate[];
+    domainStringRequestMap: Stringmap;
+    certificateMap: Objectmap<Certificate>;
+    letsencrypt: Letsencrypt;
+    private _challengeHandler;
+    private _certRepo;
     /**
      * Constructor for Cert object
      */
     constructor(optionsArg: ICertConstructorOptions);
     /**
-     * Pulls already requested certificates from git origin
+     * adds a Certificate for a given domain
      */
-    sslGitOriginPull: () => void;
-    /**
-     * Pushes all new requested certificates to git origin
-     */
-    sslGitOriginAddCommitPush: () => void;
-    /**
-     * gets a ssl cert for a given domain
-     */
-    getDomainCert(domainNameArg: string, optionsArg?: {
+    addCertificate(domainNameArg: string, optionsArg?: {
         force: boolean;
-    }): plugins.q.Promise<{}>;
+    }): q.Promise<{}>;
+    /**
+     * cleans up old certificates
+     */
     cleanOldCertificates(): void;
-}
-export declare class Certificate {
-    domainName: string;
-    creationDate: Date;
-    expiryDate: Date;
-    constructor();
+    /**
+     * executes the current batch of jobs
+     */
+    deploy(): void;
 }
