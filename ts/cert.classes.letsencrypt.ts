@@ -45,8 +45,10 @@ export class Letsencrypt {
             fullchainPath: ':configDir/live/:hostname/fullchain.pem',
             certPath: ':configDir/live/:hostname/cert.pem',
             chainPath: ':configDir/live/:hostname/chain.pem',
-            agreeToTerms: true,
-            debug: true
+            agreeToTerms: (opts, agreeCb) => {
+                agreeCb(null, opts.tosUrl)
+            },
+            debug: false
         })
     }
 
@@ -62,8 +64,7 @@ export class Letsencrypt {
             domains: [domainNameArg],
             email: 'domains@lossless.org',
             agreeTos: true,
-            rsaKeySize: 2048,
-            challengeType: 'dns-01'
+            rsaKeySize: 2048
         }).then(
             (results) => {
                 plugins.beautylog.success(`Got certificates for ${domainNameArg}`)
@@ -128,10 +129,5 @@ export class Letsencrypt {
                 cb()
             }
         }
-    }
-
-    private _leAgree(opts, agreeCb) {
-        // opts = { email, domains, tosUrl } 
-        agreeCb(null, opts.tosUrl);
     }
 }

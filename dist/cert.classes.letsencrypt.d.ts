@@ -23,5 +23,4 @@ export declare class Letsencrypt {
      * translates to the format expected by letsencrypt node implementation
      */
     private _leChallengeHandler();
-    private _leAgree(opts, agreeCb);
 }
