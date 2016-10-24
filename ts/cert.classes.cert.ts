@@ -45,11 +45,11 @@ export class Cert {
         })
 
         // setup CertRpo
-        this._certRepo = new CertRepo({
+        /* this._certRepo = new CertRepo({
             sslDirPath: optionsArg.sslDirPath,
             gitOriginRepo: optionsArg.gitOriginRepo,
             certInstance: this
-        })
+        }) */
     }
 
     /**
