@@ -1,5 +1,6 @@
 import * as q from 'q'
 let letsencrypt = require('letsencrypt')
+let leStore = require('le-store-certbot')
 
 import * as plugins from './cert.plugins'
 import * as paths from './cert.paths'
@@ -39,19 +40,19 @@ export class Letsencrypt {
         this._leInstance = letsencrypt.create({
             server: this._leServerUrl,
             challenges: {
-                'dns-01': this._leChallengeHandler(),
+                'dns-01': this._leChallengeHandler()
             },
             challengeType: 'dns-01',
-            configDir: paths.leConfigDir,
-            privkeyPath: ':configDir/live/:hostname/privkey.pem',
-            fullchainPath: ':configDir/live/:hostname/fullchain.pem',
-            certPath: ':configDir/live/:hostname/cert.pem',
-            chainPath: ':configDir/live/:hostname/chain.pem',
+            store: leStore.create({
+                configDir: paths.leConfigDir,
+                debug: true
+            }),
             agreeToTerms: (opts, agreeCb) => {
                 agreeCb(null, opts.tosUrl)
             },
             debug: true
         })
+        console.log()
     }
 
     /**
@@ -126,7 +127,7 @@ export class Letsencrypt {
                     })
             },
             loopback: (defaults, domain, challenge, done) => {
-                cb()
+                done()
             },
             test: (defaults, domain, challenge, cb) => {
                 cb()
