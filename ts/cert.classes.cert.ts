@@ -50,8 +50,6 @@ export class Cert {
             gitOriginRepo: optionsArg.gitOriginRepo,
             certInstance: this
         })
-
-        this._certRepo
     }
 
     /**

@@ -38,7 +38,9 @@ export class Letsencrypt {
         // create leInstance
         this._leInstance = letsencrypt.create({
             server: this._leServerUrl,
-            challenges: { 'dns-01': this._leChallengeHandler() },
+            challenges: {
+                'dns-01': this._leChallengeHandler(),
+            },
             challengeType: 'dns-01',
             configDir: paths.leConfigDir,
             privkeyPath: ':configDir/live/:hostname/privkey.pem',
@@ -48,7 +50,7 @@ export class Letsencrypt {
             agreeToTerms: (opts, agreeCb) => {
                 agreeCb(null, opts.tosUrl)
             },
-            debug: false
+            debug: true
         })
     }
 
@@ -62,11 +64,12 @@ export class Letsencrypt {
         console.log(this._leServerUrl)
         this._leInstance.register({
             domains: [domainNameArg],
-            email: 'domains@lossless.org',
+            email: 'office@lossless.com',
             agreeTos: true,
-            rsaKeySize: 2048
+            rsaKeySize: 2048,
+            challengeType: 'dns-01'
         }).then(
-            (results) => {
+            results => {
                 plugins.beautylog.success(`Got certificates for ${domainNameArg}`)
                 this._leCopyToDestination(domainNameArg).then(done.resolve)
             },
@@ -85,6 +88,7 @@ export class Letsencrypt {
 
     private _leCopyToDestination(domainNameArg) {
         let done = q.defer()
+        done.resolve()
         return done.promise
     }
 
@@ -95,7 +99,7 @@ export class Letsencrypt {
         return {
             getOptions: () => {
                 return {
-                    debug: true
+                    debug: false
                 }
             },
             set: (args, domain, challenge, keyAuthorization, cb) => {
@@ -111,7 +115,6 @@ export class Letsencrypt {
                     })
             },
             get: (defaults, domain, challenge, cb) => {
-                console.log(defaults)
                 console.log(domain)
                 console.log(challenge)
                 cb()
@@ -122,7 +125,7 @@ export class Letsencrypt {
                         cb()
                     })
             },
-            loopback: (opts, domain, token, keyAuthorization, cb) => {
+            loopback: (defaults, domain, challenge, done) => {
                 cb()
             },
             test: (defaults, domain, challenge, cb) => {
