@@ -44,12 +44,20 @@ export class Cert {
             challengeHandler: this._challengeHandler
         })
 
-        // setup CertRpo
-        /* this._certRepo = new CertRepo({
+        this._certRepo = new CertRepo({
             sslDirPath: optionsArg.sslDirPath,
-            gitOriginRepo: optionsArg.gitOriginRepo,
+            remoteGitUrl: optionsArg.gitOriginRepo,
             certInstance: this
-        }) */
+        })
+    }
+
+    /**
+     * setup the Cert instanceof
+     * @executes ASYNC
+     * @return Promise
+     */
+    setup() {
+        return this._certRepo.setup()
     }
 
     /**

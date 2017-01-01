@@ -15,6 +15,21 @@ export interface ILetsencryptConstructorOptions {
     sslDir: string
 }
 
+let leStoreConfig = {
+    configDir: paths.leConfigDir,
+    privkeyPath: ':configDir/:hostname/privkey.pem',
+    fullchainPath: ':configDir/:hostname/fullchain.pem',
+    certPath: ':configDir/:hostname/cert.pem',
+    chainPath: ':configDir/:hostname/chain.pem',
+
+    workDir: ':configDir/letsencrypt/var/lib',
+    logsDir: ':configDir/letsencrypt/var/log',
+
+    debug: true
+}
+
+let leStoreInstance = leStore.create(leStoreConfig)
+
 export class Letsencrypt {
     leEnv: TLeEnv
     challengeHandler: ChallengeHandler // this is the format we use
@@ -43,14 +58,14 @@ export class Letsencrypt {
                 'dns-01': this._leChallengeHandler()
             },
             challengeType: 'dns-01',
-            store: leStore.create({
-                configDir: paths.leConfigDir,
-                debug: true
-            }),
+            store: leStoreInstance,
             agreeToTerms: (opts, agreeCb) => {
                 agreeCb(null, opts.tosUrl)
             },
-            debug: true
+            debug: true,
+            log: function (debug) {
+                console.info(arguments)
+            }
         })
         console.log()
     }
@@ -61,25 +76,33 @@ export class Letsencrypt {
     registerDomain(domainNameArg: string) {
         plugins.beautylog.log(`trying to register domain ${domainNameArg}`)
         let done = q.defer()
-        console.log('test')
-        console.log(this._leServerUrl)
-        this._leInstance.register({
-            domains: [domainNameArg],
-            email: 'office@lossless.com',
-            agreeTos: true,
-            rsaKeySize: 2048,
-            challengeType: 'dns-01'
-        }).then(
-            results => {
-                plugins.beautylog.success(`Got certificates for ${domainNameArg}`)
-                this._leCopyToDestination(domainNameArg).then(done.resolve)
-            },
-            (err) => {
-                console.error('[Error]: node-letsencrypt/examples/standalone')
-                console.error(err.stack)
-                done.resolve()
+        plugins.smartfile.fs.ensureDirSync(plugins.path.join(paths.leConfigDir, 'live', domainNameArg))
+        this._leInstance.check({ domains: [domainNameArg] }).then((cert) => {
+            console.log(cert)
+            let opts = {
+                domains: [domainNameArg],
+                email: 'domains@lossless.org',
+                agreeTos: true,
+                rsaKeySize: 2048,                                       // 2048 or higher
+                challengeType: 'dns-01',
+                duplicate: true
             }
-            ).catch(err => { console.log(err) })
+
+            if (cert) {
+                if (true) {
+                    return this._leInstance.renew(opts, cert).catch((err) => {
+                        console.log(err)
+                    })
+                } else {
+                    return cert
+                }
+            } else {
+                // Register Certificate manually
+                return this._leInstance.register(opts).catch((err) => {
+                    console.log(err)
+                })
+            }
+        })
         return done.promise
     }
 
@@ -126,7 +149,7 @@ export class Letsencrypt {
                         cb()
                     })
             },
-            loopback: (defaults, domain, challenge, done) => {
+            loopback: (defaults, domain, token, keyAuthorization, done) => {
                 done()
             },
             test: (defaults, domain, challenge, cb) => {

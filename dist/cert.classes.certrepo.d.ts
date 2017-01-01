@@ -3,14 +3,19 @@ import * as q from 'q';
 import { Cert } from './cert.classes.cert';
 export interface ICertRepoConstructorOptions {
     sslDirPath: string;
-    gitOriginRepo: string;
+    remoteGitUrl: string;
     certInstance: Cert;
 }
 export declare class CertRepo {
     private _sslDirPath;
-    private _gitOriginRepo;
+    private _remoteGitUrl;
+    private gitRepo;
     private _certInstance;
     constructor(optionsArg: ICertRepoConstructorOptions);
+    /**
+     * setup the Cert instance
+     */
+    setup(): q.Promise<{}>;
     /**
      * syncs an objectmap of Certificates with repo
      */

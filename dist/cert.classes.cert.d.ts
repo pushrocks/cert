@@ -21,6 +21,12 @@ export declare class Cert {
      */
     constructor(optionsArg: ICertConstructorOptions);
     /**
+     * setup the Cert instanceof
+     * @executes ASYNC
+     * @return Promise
+     */
+    setup(): q.Promise<{}>;
+    /**
      * adds a Certificate for a given domain
      */
     addCertificate(domainNameArg: string, optionsArg?: {

@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "scripts": {
-    "test": "(npm run cleanTest && npmts)",
+    "test": "(npm run cleanTest && npmts --nodocs)",
     "cleanTest": "(rm -rf ./test/assets)",
     "compile": "(npmts --notest)"
   },
@@ -30,22 +30,22 @@
     "@types/q": "0.0.32",
     "beautylog": "^6.0.0",
     "cflare": "0.0.10",
-    "fs-extra": "^0.30.0",
+    "fs-extra": "^1.0.0",
     "le-store-certbot": "^2.0.3",
     "letsencrypt": "^2.1.8",
-    "lik": "^1.0.24",
+    "lik": "^1.0.27",
     "q": "^1.4.1",
-    "smartcli": "^1.0.10",
-    "smartfile": "^4.0.24",
-    "smartgit": "0.1.9",
-    "smartstring": "^2.0.17",
+    "smartcli": "^2.0.1",
+    "smartfile": "^4.1.1",
+    "smartgit": "1.0.5",
+    "smartstring": "^2.0.22",
     "typings-global": "^1.0.14"
   },
   "devDependencies": {
     "@types/should": "^8.1.30",
-    "npmts-g": "^5.2.8",
+    "npmts-g": "^5.2.10",
     "qenv": "^1.1.1",
-    "should": "^11.1.1",
+    "should": "^11.1.2",
     "typings-test": "^1.0.3"
   }
 }

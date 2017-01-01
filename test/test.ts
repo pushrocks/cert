@@ -13,7 +13,6 @@ let testCert: cert.Cert
 describe('cert',function(){
     describe('Cert',function(){
         it('should create a new Cert object from class',function(){
-            this.timeout(40000)
             testCert = new cert.Cert({
                 cfEmail: process.env.CF_EMAIL,
                 cfKey: process.env.CF_KEY,
@@ -22,6 +21,12 @@ describe('cert',function(){
                 leEnv: 'staging'
             })
             should(testCert).be.instanceof(cert.Cert)
+        })
+        it('should run class Cert.setup() successful', function(done){
+            this.timeout(40000)
+            testCert.setup().then(() => {
+                done()
+            })
         })
         it('should get a valid certificate',function(done){
             this.timeout(1200000)
