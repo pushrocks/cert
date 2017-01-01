@@ -31,8 +31,6 @@
     "beautylog": "^6.0.0",
     "cflare": "0.0.10",
     "fs-extra": "^1.0.0",
-    "le-store-certbot": "^2.0.3",
-    "letsencrypt": "^2.1.8",
     "lik": "^1.0.27",
     "q": "^1.4.1",
     "smartcli": "^2.0.1",
