@@ -33,6 +33,7 @@
     "fs-extra": "^1.0.0",
     "lik": "^1.0.27",
     "q": "^1.4.1",
+    "smartacme": "^1.0.2",
     "smartcli": "^2.0.1",
     "smartfile": "^4.1.1",
     "smartgit": "1.0.5",
